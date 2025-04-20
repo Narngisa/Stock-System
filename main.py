@@ -7,11 +7,12 @@ from tkinter import ttk
 
 # โหลดสต็อก
 def load_json():
-    global recipes, stock, dessert
+    global recipes, stock, dessert, promotion
 
     recipes_path = "./json/recipes.json"
     stock_path = "./json/stock.json"
     dessert_path = "./json/dessert.json"
+    promotion_path = "./json/promotion.json"
 
     try:
         os.makedirs('./json', exist_ok=True)
@@ -27,6 +28,10 @@ def load_json():
         if os.path.exists(dessert_path):
             with open(dessert_path, "r", encoding="utf-8") as f:
                 dessert = json.load(f)
+
+        if os.path.exists(promotion_path):
+            with open(promotion_path, "r", encoding="utf-8") as f:
+                promotion = json.load(f)
 
     except Exception as e:
         print(f"เกิดข้อผิดพลาดในการโหลดข้อมูล: {e}")
@@ -177,6 +182,22 @@ def send_item(message, name, amount):
     log_message = f"[{timestamp}] {message}"
 
     print(log_message)
+
+def promotion_item(itemname, quantity):
+    if itemname not in promotion:
+        print("ไม่มีโปรโมทชั่นนี้")
+        return
+    
+    requied = promotion[itemname]
+    for ing, amount in requied.items(): 
+        total_required = amount * quantity
+        if dessert.get(ing, 0) < total_required:
+            print(f"ขนม {ing} ในตู้เย็นไม่พอ (ต้องการ {total_required} มี {dessert.get(ing, 0)})")
+            return
+        
+    for ing, amount in requied.items():
+        dessert[ing] -= amount * quantity
+    print(f"เสริฟ {itemname} จำนวน {quantity} เรียบร้อย")
 
 def save_stock():
     try:
@@ -504,7 +525,7 @@ def serve_dessert():
         if amount <= 0:
             raise ValueError("จำนวนต้องเป็นค่าบวก")
         reduce_dessert(name, amount)
-        messagebox.showinfo("สำเร็จ", f"ลด {name} จำนวน {amount} หน่วยแล้ว")
+        messagebox.showinfo("สำเร็จ", f"เสริฟ {name} จำนวน {amount} หน่วยแล้ว")
         show_refrigerator()
         save_dessert()
     except ValueError:
@@ -513,6 +534,38 @@ def serve_dessert():
 # ปุ่มเพิ่ม, ลบ, ลดจำนวนวัตถุดิบ
 Button(frame_ref, text="➕ เพิ่ม", command=add_to_dessert).grid(row=0, column=2, padx=5)
 Button(frame_ref, text="➖ เสริฟ", command=serve_dessert).grid(row=0, column=3, padx=5)
+
+ref_list = list(promotion.keys())
+ref_combobox = ttk.Combobox(frame_ref, values=ref_list, font=("TH Sarabun New", 14), width=25)
+ref_combobox.grid(row=1, column=0, padx=5)
+ref_amount = Entry(frame_ref, font=("TH Sarabun New", 14), width=10)
+ref_amount.grid(row=1, column=1, padx=5)
+
+def serve_promotion():
+    item_name = ref_combobox.get()
+    try:
+        quantity = int(ref_amount.get())
+        
+        # ตรวจสอบเมนู
+        if item_name not in promotion:
+            messagebox.showerror("ผิดพลาด", f"ไม่มีโปรโมชั่น {item_name} นี้")
+            return
+
+        required = promotion[item_name]
+        for ing, amount in required.items():
+            total_required = amount * quantity
+            if dessert.get(ing, 0) < total_required:
+                messagebox.showerror("ผิดพลาด", f"ขนม {ing} ในตู้เย็นไม่พอ (ต้องการ {total_required} มี {dessert.get(ing, 0)})")
+                return
+        
+        promotion_item(item_name, quantity)
+        messagebox.showinfo("สำเร็จ", f"เสริฟ {item_name} จำนวน {quantity} เซ็ทแล้ว")
+        show_refrigerator()
+        save_dessert()
+    except ValueError:
+        messagebox.showerror("ผิดพลาด", "กรุณาใส่จำนวนเป็นตัวเลข")
+
+Button(frame_ref, text="➖ เสริฟ", command=serve_promotion).grid(row=1, column=2, padx=5, pady=10)
 
 # ออกจากโปรแกรม
 def on_exit():

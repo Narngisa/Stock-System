@@ -1,0 +1,21 @@
+{
+    "Fresh & Fruity Set": {
+        "Apple Pie": 8,
+        "Apple Juice": 2
+    },
+    "Lazy Brunch Set": {
+        "Pancake": 5,
+        "Soy Milk": 1,
+        "Macaron(Chocolate": 3
+    },
+    "Golden Grass Set": {
+        "Grass Jelly": 1,
+        "Pancake": 3,
+        "Oat Milk": 1
+    },
+    "Dark & Sweet Set": {
+        "Chocolate Mousse": 1,
+        "Cocoa Milk": 2,
+        "Brownie": 4
+    }
+}
