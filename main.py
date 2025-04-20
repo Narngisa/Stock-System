@@ -196,7 +196,7 @@ def promotion_item(itemname, quantity):
             return
         
     for ing, amount in requied.items():
-        dessert[ing] -= amount * quantity
+        dessert[ing] = max(0, dessert[ing] - amount * quantity)
     print(f"เสริฟ {itemname} จำนวน {quantity} เรียบร้อย")
 
 def save_stock():
