@@ -535,16 +535,16 @@ def serve_dessert():
 Button(frame_ref, text="➕ เพิ่ม", command=add_to_dessert).grid(row=0, column=2, padx=5)
 Button(frame_ref, text="➖ เสริฟ", command=serve_dessert).grid(row=0, column=3, padx=5)
 
-ref_list = list(promotion.keys())
-ref_combobox = ttk.Combobox(frame_ref, values=ref_list, font=("TH Sarabun New", 14), width=25)
-ref_combobox.grid(row=1, column=0, padx=5)
-ref_amount = Entry(frame_ref, font=("TH Sarabun New", 14), width=10)
-ref_amount.grid(row=1, column=1, padx=5)
+ref_list_pro = list(promotion.keys())
+ref_combobox_pro = ttk.Combobox(frame_ref, values=ref_list_pro, font=("TH Sarabun New", 14), width=25)
+ref_combobox_pro.grid(row=1, column=0, padx=5)
+ref_amount_pro = Entry(frame_ref, font=("TH Sarabun New", 14), width=10)
+ref_amount_pro.grid(row=1, column=1, padx=5)
 
 def serve_promotion():
-    item_name = ref_combobox.get()
+    item_name = ref_combobox_pro.get()
     try:
-        quantity = int(ref_amount.get())
+        quantity = int(ref_amount_pro.get())
         
         # ตรวจสอบเมนู
         if item_name not in promotion:
