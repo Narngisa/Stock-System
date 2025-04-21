@@ -1,5 +1,5 @@
 {
-  "Cheesecake": 0.0,
+  "Cheesecake": 6.0,
   "Brownie": 0.0,
   "Apple Pie": 0.0,
   "Chocolate Mousse": 0.0,
@@ -15,15 +15,15 @@
   "Shaved Ice(Orange)": 0,
   "Shaved Ice(Apple)": 0,
   "Shaved Ice(Chocolate)": 0,
-  "Water": 0,
+  "Water": 0.0,
   "Milk": 0.0,
-  "Cocoa Milk": 0.0,
+  "Cocoa Milk": 0,
   "Soy Milk": 0.0,
   "Oat Milk": 0.0,
   "Green Tea": 0.0,
   "Orange Juice": 0.0,
   "Orange Smoothie": 0.0,
-  "Apple Juice": 0,
+  "Apple Juice": 0.0,
   "Apple Smoothie": 0.0,
   "Lime Juice": 0.0,
   "Lime Smoothie": 0.0,
@@ -33,7 +33,7 @@
   "Panna Cotta(Orange)": 0.0,
   "Panna Cotta(Apple)": 0,
   "Macaron(Chocolate)": 0.0,
-  "Macaron(Vanilla)": 0,
+  "Macaron(Vanilla)": 0.0,
   "Blood": 1,
-  "Sandwich": 0
+  "Sandwich": 0.0
 }
